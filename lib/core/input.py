@@ -10,26 +10,26 @@ class InputKeys( Enum ):
     Down    = LCD.DOWN
 
 class InputHandler:
-    signalKeyPress = signal( 'InputHandler.KeyPress' )
+    signal_key_press = signal( 'InputHandler.KeyPress' )
     _state = {}
 
     def update( self, alcd ):
         for key in InputKeys:            
             if alcd.is_pressed( key.value ):
-                self._keyPress( key )
+                self._key_press( key )
             else:
-                self._keyUp( key )
+                self._key_up( key )
 
-    def isKeyDown( self, key ):
+    def is_key_down( self, key ):
         return self._state.get( key.value, False )
  
-    def _keyPress( self, key ):
-        if not self.isKeyDown( key ):
+    def _key_press( self, key ):
+        if not self.is_key_down( key ):
             self._state[ key.value ] = True
-            self.signalKeyPress.send( key )
+            self.signal_key_press.send( key )
             #print( self._state )
     
-    def _keyUp( self, key ):
-        if self.isKeyDown( key ):
+    def _key_up( self, key ):
+        if self.is_key_down( key ):
             self._state[ key.value ] = False
             #print( self._state )
