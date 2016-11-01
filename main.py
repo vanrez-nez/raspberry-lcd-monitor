@@ -1,11 +1,12 @@
 #!usr/bin/python
 import time
 from Adafruit_CharLCD import Adafruit_CharLCDPlate as ALCD
-from lib import InputHandler
-from lib import InputKeys
-from lib import ScreenDirector
-from lib import SystemScreen
-from lib import TorrentScreen
+
+from lib.core.input import InputHandler
+from lib.core.input import InputKeys
+from lib.core.screen_director import ScreenDirector
+from lib.screens.torrent.torrent import TorrentScreen
+from lib.screens.system.system import SystemScreen
 
 lcd = ALCD()
 inputHandler = InputHandler()

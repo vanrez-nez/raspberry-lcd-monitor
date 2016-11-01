@@ -1,4 +1,4 @@
-from Screen import Screen
+from lib.core.screen import Screen
 
 class SystemScreen( Screen ):
     def __init__( self ):
