@@ -1,12 +1,13 @@
 #!usr/bin/python
 import time
+import atexit
 from Adafruit_CharLCD import Adafruit_CharLCDPlate as ALCD
 
 from lib.core.input import InputHandler
 from lib.core.input import InputKeys
 from lib.core.screen import Screen
 from lib.core.screen_director import ScreenDirector
-#from lib.slides.torrent.jobs import TorrentJobs
+from lib.slides.torrent.jobs import TorrentJobs
 from lib.slides.system.cpu import SystemCPU
 
 lcd = ALCD()
@@ -19,7 +20,14 @@ system_screen.add_slide( SystemCPU() )
 director.add_screen( system_screen )
 
 """ Add Torrent Screen """
-#director.addScreen( torrentScreen() )
+torrent_screen = Screen( color=[1.0, 1.0, 0.0] )
+torrent_screen.add_slide( TorrentJobs() )
+director.add_screen( torrent_screen )
+
+@atexit.register
+def shutdown():
+    print( "Shutting down" )
+    lcd.set_backlight( 0 )
 
 def navigate( key ):
     if key == InputKeys.Up:

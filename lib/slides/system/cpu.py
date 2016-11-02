@@ -1,3 +1,4 @@
+import datetime
 from lib.core.slide import Slide
 
 class SystemCPU( Slide ):
@@ -6,5 +7,7 @@ class SystemCPU( Slide ):
         super( SystemCPU, self ).__init__( 'cpu' )
         print('initializing SystemCPU slide')
     
-    def update(self, alcd):
-        return
+    def _get_buffer( self ):
+        return "Same Text"
+        
+

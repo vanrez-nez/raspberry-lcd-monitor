@@ -17,6 +17,9 @@ class ScreenDirector:
         self._screens.current().deactivate()
         self._screens.next().activate()
         print( 'Going to PrevScreen' )
+    
+    def get_current_screen( self ):
+        return self._screens.current()
 
     def update( self, alcd ):
         if self._screens.current():

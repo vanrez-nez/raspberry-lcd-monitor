@@ -12,6 +12,7 @@ class Screen:
 
     def deactivate( self ):
         """ Triggers when ScreenManager deactivates this screen """
+        self._initted = False
         self._slides.current().deactivate()     
     
     def next_slide( self ):
