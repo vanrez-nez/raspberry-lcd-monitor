@@ -32,6 +32,8 @@ class Screen:
         return self._slides.current()
     
     def initialize( self, alcd ):
+        if self._slides.current():
+            self._slides.current().activate()
         alcd.clear()
         alcd.set_color( self._color[0], self._color[1], self._color[2] )
 
@@ -42,4 +44,8 @@ class Screen:
             self.initialize( alcd )
        
         if self._slides.current():
-            self._slides.current().update( alcd )
+           self._slides.current().update( alcd )
+
+    def release( self ):
+        for slide in self._slides.get_list():
+            slide.deactivate()

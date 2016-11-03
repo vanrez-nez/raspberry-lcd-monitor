@@ -8,15 +8,20 @@ from lib.core.input import InputKeys
 from lib.core.screen import Screen
 from lib.core.screen_director import ScreenDirector
 from lib.slides.torrent.jobs import TorrentJobs
-from lib.slides.system.cpu import SystemCPU
+from lib.slides.system.cpu_mem import SystemCpuMem
+from lib.slides.system.hd import SystemHd
 
 lcd = ALCD()
+
+#lcd.create_char( 1, [ 0, 16, 16, 20, 23, 31, 31, 0 ] )
+
 input_handler = InputHandler()
 director = ScreenDirector()
 
 """ Add System Screen """
 system_screen = Screen( color=[1.0, 0.0, 0.0] )
-system_screen.add_slide( SystemCPU() )
+system_screen.add_slide( SystemCpuMem() )
+system_screen.add_slide( SystemHd( mount_point='/') )
 director.add_screen( system_screen )
 
 """ Add Torrent Screen """
@@ -27,6 +32,7 @@ director.add_screen( torrent_screen )
 @atexit.register
 def shutdown():
     print( "Shutting down" )
+    director.release_all()
     lcd.set_backlight( 0 )
 
 def navigate( key ):
@@ -44,4 +50,4 @@ input_handler.signal_key_press.connect( navigate )
 while True:
     input_handler.update( lcd )
     director.update( lcd )
-
+    time.sleep( 0.1 )

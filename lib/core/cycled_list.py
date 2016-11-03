@@ -4,14 +4,10 @@ class CycledList:
     
     def __init__( self ):
         self._list = []
-        self._curr = None
+        self._curr = 0
 
     def current( self ):
-        if self._curr != None and self._list.count( self._curr ) > 0:
-            idx = self._list.index( self._curr )
-            return self._list[ idx ]
-        else:
-            return None
+        return self._curr if self._curr != None else None
  
     def step( self, s ):
         idx = self._list.index( self._curr )
@@ -36,3 +32,6 @@ class CycledList:
         
         if not self._curr:
             self._curr = item
+    
+    def get_list( self ):
+        return self._list[:]

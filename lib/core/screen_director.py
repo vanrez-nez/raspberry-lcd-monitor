@@ -25,4 +25,6 @@ class ScreenDirector:
         if self._screens.current():
             self._screens.current().update( alcd )
 
-    
+    def release_all( self ):
+        for screen in self._screens.get_list():
+            screen.release()
