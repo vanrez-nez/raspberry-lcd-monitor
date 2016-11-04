@@ -9,18 +9,23 @@ class CycledList:
     def current( self ):
         return self._curr if self._curr != None else None
  
-    def step( self, s ):
+    def _step( self, s ):
         idx = self._list.index( self._curr )
         next_idx = ( idx + s ) % len( self._list )
-        self._curr = self._list[ next_idx ]
-        print( self._curr )
+        return self._list[ next_idx ]
+
+    def peek_next( self ):
+        return self._step( 1 )
+
+    def peek_prev( self ):
+        return self._step( -1 )
 
     def next( self ):
-        self.step( 1 )
+        self._curr = self._step( 1 )
         return self.current()
 
     def prev( self ):
-        self.step( -1 )
+        self._curr = self._step( -1 )
         return self.current()
 
     def insert( self, item ):

@@ -2,7 +2,7 @@ from datetime import datetime
 
 class Slide( object ):
 
-    _DEFAULT_UPDATE_SEC = 4
+    _DEFAULT_UPDATE_SEC = 2
 
     def __init__( self, name ):
         self._update_freq = self._DEFAULT_UPDATE_SEC
@@ -33,31 +33,38 @@ class Slide( object ):
     def _get_buffer( self ):
         return ''
 
+    def _pad( self, buff ):
+        lines = buff.split( '\n' )
+        return '\n'.join( [ s.ljust( 16 ) for s in lines ] )
+
     def _get_buff_diff( self ):
         diff = []
         col = 0
         row = 0
-        fb = self._front_buffer
-        bb = self._back_buffer
+        fb = self._pad( self._front_buffer )
+        bb = self._pad( self._back_buffer )
 
-        for idx, char in enumerate(bb):
+        print(fb, bb)
+
+        for idx, char in enumerate( bb ):
             if char == '\n':
                 col = 0
                 row += 1
             else:
-                if len(fb) - 1 < idx or char != fb[ idx ]:
+                if len( fb ) - 1 < idx or char != fb[ idx ]:
                     diff.append( (col, row, char ) )
-            col += 1
+                col += 1
         
         return diff
 
     def _swap_buffer( self, alcd ):
-        #print('swaping buffers', self._back_buffer, self._front_buffer)
+        # print('swaping buffers', self._back_buffer, self._front_buffer)
         buff_diff = self._get_buff_diff()
+        # print('diff', buff_diff )
         if len( buff_diff ) > 5:
             # heavy buffer
             alcd.set_cursor( 0, 0 )
-            alcd.message( self._back_buffer )
+            alcd.message( self._pad( self._back_buffer ) )
         else:
             # light buffer
             self._write_chars( alcd, buff_diff )
@@ -83,7 +90,7 @@ class Slide( object ):
             alcd.clear()
 
         if self._buffer_dirty:
-            print('Updating')
+            #print('Updating')
             self._swap_buffer( alcd )
             self._buffer_dirty = False
             self._last_update = datetime.now()

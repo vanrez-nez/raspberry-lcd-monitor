@@ -17,11 +17,15 @@ class Screen:
     
     def next_slide( self ):
         """ Switch to next slide """
-        self._slides.next().activate()
+        if self._slides.peek_next() != self._slides.current():
+            self._slides.current().deactivate()
+            self._slides.next().activate()
     
     def prev_slide( self ):
         """ Switch to previous slide """
-        self._slides.prev().activate()
+        if self._slides.peek_prev() != self._slides.current():
+            self._slides.current().deactivate()
+            self._slides.prev().activate()
     
     def add_slide( self, slide ):
         """ Adds a new slide to screen """

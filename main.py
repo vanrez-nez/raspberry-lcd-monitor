@@ -8,18 +8,27 @@ from lib.core.input import InputKeys
 from lib.core.screen import Screen
 from lib.core.screen_director import ScreenDirector
 from lib.slides.torrent.jobs import TorrentJobs
+
 from lib.slides.system.cpu_mem import SystemCpuMem
 from lib.slides.system.hd import SystemHd
+from lib.slides.system.net_speed import SystemNetSpeed
+from lib.slides.system.net_ip import SystemNetIp
+from lib.slides.system.net_transfer import SystemNetTransfer
 
 lcd = ALCD()
 
-#lcd.create_char( 1, [ 0, 16, 16, 20, 23, 31, 31, 0 ] )
+# Register custom glyphs
+lcd.create_char( 1, [ 0, 4, 4, 4, 31, 14, 4, 0 ] ) # arrow_down
+lcd.create_char( 2, [ 0, 4, 14, 31, 4, 4, 4, 0 ] ) # arrow_up
+lcd.create_char( 3, [ 8, 12, 14, 15, 14, 12, 8, 0 ] ) # triangle right
+lcd.create_char( 4, [ 0, 24, 24, 19, 18, 1, 3, 0 ] )
 
 input_handler = InputHandler()
 director = ScreenDirector()
 
 """ Add System Screen """
-system_screen = Screen( color=[1.0, 0.0, 0.0] )
+system_screen = Screen( color=[1.0, 0.0, .0] )
+system_screen.add_slide( SystemNetSpeed( iface='usb0') )
 system_screen.add_slide( SystemCpuMem() )
 system_screen.add_slide( SystemHd( mount_point='/') )
 director.add_screen( system_screen )

@@ -13,7 +13,7 @@ class SystemHd( Slide ):
     
     def _get_buffer( self ):
         hd = psutil.disk_usage( self._mount_point )
-        hd_total = format_bytes( hd.total )
-        return "T:%s" % ( hd_total )
+        hd_free = format_bytes( hd.free, decimals=2 )
+        return "HDD: %s\nDEV: %s" % ( hd_free, self._mount_point )
         
 
