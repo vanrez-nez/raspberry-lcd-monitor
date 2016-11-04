@@ -12,8 +12,9 @@ from lib.slides.torrent.jobs import TorrentJobs
 from lib.slides.system.cpu_mem import SystemCpuMem
 from lib.slides.system.hd import SystemHd
 from lib.slides.system.net_speed import SystemNetSpeed
-from lib.slides.system.net_ip import SystemNetIp
+from lib.slides.system.net_local_ip import SystemNetLocalIp
 from lib.slides.system.net_transfer import SystemNetTransfer
+from lib.slides.system.uptime import SystemUpTime
 
 lcd = ALCD()
 
@@ -28,6 +29,8 @@ director = ScreenDirector()
 
 """ Add System Screen """
 system_screen = Screen( color=[1.0, 0.0, .0] )
+system_screen.add_slide( SystemUpTime() )
+system_screen.add_slide( SystemNetLocalIp( iface='usb0' ) )
 system_screen.add_slide( SystemNetSpeed( iface='usb0') )
 system_screen.add_slide( SystemCpuMem() )
 system_screen.add_slide( SystemHd( mount_point='/') )
@@ -42,7 +45,7 @@ director.add_screen( torrent_screen )
 def shutdown():
     print( "Shutting down" )
     director.release_all()
-    lcd.set_backlight( 0 )
+    lcd.set_backlight( 0.5 )
 
 def navigate( key ):
     if key == InputKeys.Up:

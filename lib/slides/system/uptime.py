@@ -1,17 +1,23 @@
-import datetime
+from datetime import datetime, timedelta
 import psutil
 from lib.core.slide import Slide
 
-class SystemCpuMem( Slide ):
+class SystemUpTime( Slide ):
     
     def __init__( self, *args, **kwargs ):
-        super( SystemCpuMem, self ).__init__( 'cpu' )
-        print('initializing SystemCPU slide')
+        super( SystemUpTime, self ).__init__( 'uptime' )
+        self._up_time = 0
+        self._update_freq = 1
+        print('initializing SystemUpTime slide') 
     
+    def _update_uptime( self ):
+        boot_time = datetime.fromtimestamp( psutil.boot_time() )
+        elapsed = (datetime.now() - boot_time).seconds
+        self._up_time = str( timedelta( 0, elapsed ) )
+
     def _get_buffer( self ):
-        cpu = psutil.cpu_percent(interval=2)
-        mem = psutil.virtual_memory()
-        f_mem = mem.available / 1024 / 1024
-        return "CPU: %s%% \nMEM: %sMB free" % ( cpu, f_mem )
+        self._update_uptime()
+        t_centered = self._up_time.center( 16, ' ' )
+        return " TOTAL UP TIME \n%s" % ( t_centered )
         
 

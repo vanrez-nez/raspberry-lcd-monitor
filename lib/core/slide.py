@@ -44,8 +44,6 @@ class Slide( object ):
         fb = self._pad( self._front_buffer )
         bb = self._pad( self._back_buffer )
 
-        print(fb, bb)
-
         for idx, char in enumerate( bb ):
             if char == '\n':
                 col = 0
