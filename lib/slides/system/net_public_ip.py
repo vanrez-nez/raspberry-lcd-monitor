@@ -1,23 +1,23 @@
+import urllib2
 import datetime
 import psutil
 from lib.core.slide import Slide
 
-class SystemNetLocalIp( Slide ):
+class SystemNetPublicIp( Slide ):
     
-    def __init__( self, iface='lo', *args, **kwargs ):
-        super( SystemNetLocalIp, self ).__init__( 'netloip' )
-        self._iface = iface
+    def __init__( self, url, *args, **kwargs ):
+        super( SystemNetPublicIp, self ).__init__( 'netpubip' )
+        self._service_url = url 
         self._ip = '127.0.0.1'
-        self._curr_iface = 'lo'
-        self._update_freq = 5
-        print('initializing SystemNetLocalIp slide')
+        self._update_freq = 15
+        print('initializing SystemNetPublicIp slide')
     
     def _update_ip( self ):
-        addrs = psutil.net_if_addrs()
-        self._curr_iface = self._iface if self._iface in addrs else 'lo'
-        a = addrs[ self._curr_iface ]
-        self._ip = a[ 0 ][ 1 ]
+        try:
+            self._ip = urllib2.urlopen( self._service_url ).read()
+        except Exception:
+            self._ip = '0.0.0.0'
         
     def _get_buffer( self ):
         self._update_ip()
-        return "LOCAL IP (%s)\n\x03%s" % ( self._curr_iface, self._ip )
+        return "PUBLIC IP\n\x03%s" % ( self._ip )
