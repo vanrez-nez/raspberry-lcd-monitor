@@ -17,5 +17,5 @@ class TorrentJobs( Slide ):
 
     def _get_buffer( self ):
         self._update_jobs()
-        return 'JOBS: \x01 %d/%d \nDONE: \x04 %d' % (self._downloading, self._queue, self._done)
+        return 'JOBS: \x01 %d/%d \nDONE: \x05 %d' % (self._downloading, self._queue, self._done)
 

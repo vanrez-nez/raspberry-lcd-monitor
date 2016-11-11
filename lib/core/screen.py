@@ -34,10 +34,13 @@ class Screen:
     def get_current_slide( self ):
         """ Returns the current slide """
         return self._slides.current()
+
+    def navigate( self, key ):
+        return self._slides.current() and self._slides.current().navigate( key )
     
     def initialize( self, alcd ):
-        if self._slides.current():
-            self._slides.current().activate()
+        #if self._slides.current():
+        #    self._slides.current().activate()
         alcd.clear()
         alcd.set_color( self._color[0], self._color[1], self._color[2] )
 

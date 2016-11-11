@@ -1,4 +1,5 @@
 from datetime import datetime
+from lib.core.logger import Console
 
 class Slide( object ):
 
@@ -24,11 +25,14 @@ class Slide( object ):
         self._active = True
         self._reset()
         self._update_buffer()
-        print( 'Activating Slide %s' % self._name )
+        Console.info( 'Activating Slide %s' % self._name )
     
     def deactivate( self ):
         self._active = False
-        print( 'Deactivating Slide %s' % self._name )
+        Console.info( 'Deactivating Slide %s' % self._name )
+
+    def navigate( self, key ):
+        return False
 
     def _get_buffer( self ):
         return ''
@@ -92,3 +96,4 @@ class Slide( object ):
             self._swap_buffer( alcd )
             self._buffer_dirty = False
             self._last_update = datetime.now()
+

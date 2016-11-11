@@ -1,0 +1,19 @@
+{
+	"system": {
+		"network_interface": "usb0",
+		"static_ip": "192.168.0.254",
+		"public_ip_url": "https://api.ipify.org",
+		"hdd_devs": [
+			{ "mount_point": "/" },
+			{ "mount_point": "/boot" }
+		]
+	},
+
+	"torrent_client": {
+		"user": "transmission",
+		"password": "crackme",
+		"port": "9091",
+		"address": "127.0.0.1"
+	}
+	
+}

@@ -28,6 +28,12 @@ class CycledList:
         self._curr = self._step( -1 )
         return self.current()
 
+    def first( self ):
+        self._curr = self._list[ 0 ]
+
+    def last( self ):
+        self._curr = self._list[ -1 ]
+
     def insert( self, item ):
         
         if self._list.count( item ) > 0:
