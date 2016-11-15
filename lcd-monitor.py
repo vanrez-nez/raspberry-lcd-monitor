@@ -55,7 +55,7 @@ net_iface = settings.read( ( 'system', 'network_interface' ) )
 net_ipurl = settings.read( ( 'system', 'public_ip_url' ) )
 hdd_devs = settings.read( ( 'system', 'hdd_devs' ) )
 
-system_screen = Screen( color=[ 0, 0, 1 ] )
+system_screen = Screen( color=[ 0, 1, 0 ] )
 system_screen.add_slide( SystemUpTime() )
 system_screen.add_slide( SystemNetLocalIp( iface=net_iface ) )
 system_screen.add_slide( SystemNetPublicIp( url=net_ipurl ) )

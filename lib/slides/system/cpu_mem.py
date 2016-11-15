@@ -1,6 +1,5 @@
 import datetime
 import psutil
-import time
 from threading import Thread
 from lib.core.slide import Slide
 from lib.core.utils import format_bytes

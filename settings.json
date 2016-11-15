@@ -1,6 +1,6 @@
 {
 	"system": {
-		"network_interface": "usb0",
+		"network_interface": "wlan0",
 		"static_ip": "192.168.0.254",
 		"public_ip_url": "https://api.ipify.org",
 		"hdd_devs": [
